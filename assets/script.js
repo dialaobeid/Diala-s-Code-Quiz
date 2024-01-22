@@ -26,3 +26,17 @@ var questions = [
         answer: "Javascript"
     }
 ];
+
+// more variables
+var currentQuestionIndex = 0; // will keep track of the index of questions in the above array
+var timer;
+var startTime = 75; // Initial timer value
+
+// Function to start the quiz
+function startQuiz() {
+    document.getElementById("start-quiz").classList.add("hidden");      // hides start-quiz section to display quiz-screen section
+    document.getElementById("quiz-screen").classList.remove("hidden");
+    displayQuestion();          // calls fx to display current ques
+    startTimer();               // calls fx to start timer
+}
+

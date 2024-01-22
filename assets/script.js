@@ -40,3 +40,24 @@ function startQuiz() {
     startTimer();               // calls fx to start timer
 }
 
+// Function to display each quiz ques
+function displayQuestion() {
+    var currentQuestion = questions[currentQuestionIndex];  // this var pulls the current ques object from the questions array
+    document.getElementById("quiz-question").textContent = currentQuestion.question; // adds ques text on html
+
+    // creates answer choice buttons
+    var choicesContainer = document.getElementById("answer-choices"); //
+    choicesContainer.innerHTML = "";
+
+    currentQuestion.choices.forEach(
+        function (choice, index) {
+        var button = document.createElement("button");
+        button.textContent = (index + 1) + ". " + choice;     // sets answer choices in button text
+        button.addEventListener("click", checkAnswer);        // when clicked, this event listener added to the button will trigger the checkAnswer function 
+        choicesContainer.appendChild(button);                 // appends button 
+    });
+}
+
+// Function to check the selected answer
+function checkAnswer(event) {
+}

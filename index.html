@@ -15,6 +15,29 @@
             <button id="start-btn">Start Quiz</button>
         </div>
     </header>
+    <main>
+        <div id="quiz-screen" class="hidden">
+            <!-- Questions and answer choices will display in this section -->
+            <div id="timer">Time: <span id="countdown"></span></div> <!--for the timer-->
+            <h2 id="quiz-question"></h2>                             <!--where each quiz ques will display-->
+            <div id="answer-choices"></div>                          <!--where the answer choices will display-->
+        </div>
+
+        <div id="end-screen" class="hidden">
+            <h2>All done!</h2>
+            <p>Your final score is <span id="final-score"></span></p>   <!--where final score will display-->
+            <label for="initials">Enter Initials:</label>
+            <input type="text" id="initials" />
+            <button id="submit-score-btn">Submit</button>               <!--after initials are input, score submitted to scoreboard below-->
+        </div>
+
+        <div id="score-board" class="hidden">
+            <h2>Highscores</h2>
+            <p></p>
+            <button id="go-back">Go Back</button>                       <!--takes me back to end screen-->
+            <button id="clear-board-btn">Clear Highscores</button>      <!--button to clear scoreboard-->
+        </div>
+    </main>
 
     <script src="./assets/script.js"></script>
 </body>

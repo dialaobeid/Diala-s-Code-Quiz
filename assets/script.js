@@ -31,6 +31,7 @@ var questions = [
 var currentQuestionIndex = 0; // will keep track of the index of questions in the above array
 var timer;
 var startTime = 75; // Initial timer value
+var score;
 
 // Function to start the quiz
 function startQuiz() {
@@ -76,4 +77,13 @@ function checkAnswer(event) {
     } else {
         endQuiz();
     }
+}
+
+// Function that ends the quiz
+function endQuiz() {
+    clearInterval(timer);                                               // stops the timer
+    countdownElement.textContent = "Time's up!";                        // adds text to countdown element in html
+    document.getElementById("quiz-screen").classList.add("hidden");     // hides quiz-screen section to display end-screen section
+    document.getElementById("end-screen").classList.remove("hidden");
+    document.getElementById("final-score").textContent = score;         // final score displays here
 }

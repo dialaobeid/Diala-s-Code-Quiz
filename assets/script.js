@@ -32,7 +32,7 @@ var currentQuestionIndex = 0;                                   // will keep tra
 var timer;
 var startTime = 75; // Initial timer value
 var countdownElement = document.getElementById("countdown");    // important variable to display countdown in html
-var score;  // should i set this to 100?
+var score = 0;  
 
 // Function to start the quiz
 function startQuiz() {
@@ -65,7 +65,7 @@ function checkAnswer(event) {
     var selectedAnswer = event.target.textContent.slice(3); // extracts the selected answer from the button text
     var currentQuestion = questions[currentQuestionIndex];  // adding this var into this fx as wells
 
-    if (selectedAnswer === currentQuestion.correctAnswer) { // checks if the selected answer matches the correct answer 
+    if (selectedAnswer === currentQuestion.answer) { // checks if the selected answer matches the correct answer 
         // since total score is 100, each correct answer = 20 points
         score += 20;
     } else {
@@ -120,12 +120,18 @@ function startTimer() {
         }, 1000);                   // timer countdown updates every second (1000ms = 1s)
 }
 
-
 //  Function that displays timer on quiz screen
 function updateTimer() {
     countdownElement.textContent = startTime;
 }
 
+
+// Function for link to high scores page to view scoreboard
+function viewHighScores() {
+    document.getElementById("end-screen").classList.add("hidden");      // hides end-screen section to display score-board section
+    document.getElementById("score-board").classList.remove("hidden");
+
+}
 
 // Event listener for the start button to start the quiz
 document.getElementById("start-btn").addEventListener("click", startQuiz);

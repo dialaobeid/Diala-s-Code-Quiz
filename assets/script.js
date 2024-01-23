@@ -130,7 +130,6 @@ function updateTimer() {
     countdownElement.textContent = startTime;
 }
 
-
 // All the code for accessing the scoreboard and displaying high scores 
 // Event listener for the submit-btn to trigger viewHighScores fx
 document.getElementById("submit-score-btn").addEventListener("click", viewHighScores);

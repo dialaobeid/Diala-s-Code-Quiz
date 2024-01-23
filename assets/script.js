@@ -5,7 +5,7 @@ var questions = [
         choices: ["Strings", "Booleans", "Alerts", "Numbers"],
         answer: "Alerts"
     },
-    { 
+    {
         question: "The condition in an if / else statement is enclosed within ______.",
         choices: ["Quotes", "Curly brackets", "Parantheses", "Square brackets"],
         answer: "Parantheses"
@@ -28,10 +28,11 @@ var questions = [
 ];
 
 // more variables
-var currentQuestionIndex = 0; // will keep track of the index of questions in the above array
+var currentQuestionIndex = 0;                                   // will keep track of the index of questions in the above array
 var timer;
 var startTime = 75; // Initial timer value
-var score;
+var countdownElement = document.getElementById("countdown");    // important variable to display countdown in html
+var score;  // should i set this to 100?
 
 // Function to start the quiz
 function startQuiz() {
@@ -47,27 +48,28 @@ function displayQuestion() {
     document.getElementById("quiz-question").textContent = currentQuestion.question; // adds ques text on html
 
     // creates answer choice buttons
-    var choicesContainer = document.getElementById("answer-choices"); 
+    var choicesContainer = document.getElementById("answer-choices");
     choicesContainer.innerHTML = "";    // this container represents the html element answer-choices, will display and clear each set of answer choices per ques
 
     currentQuestion.choices.forEach(
         function (choice, index) {
-        var button = document.createElement("button");        // creates a button for each answer choice
-        button.textContent = (index + 1) + ". " + choice;     // sets answer choices in button text
-        button.addEventListener("click", checkAnswer);        // when clicked, this event listener added to the button will trigger the checkAnswer function 
-        choicesContainer.appendChild(button);                 // appends button to choicesContainer
-    });
+            var button = document.createElement("button");        // creates a button for each answer choice
+            button.textContent = (index + 1) + ". " + choice;     // sets answer choices in button text
+            button.addEventListener("click", checkAnswer);        // when clicked, this event listener added to the button will trigger the checkAnswer function 
+            choicesContainer.appendChild(button);                 // appends button to choicesContainer
+        });
 }
 
 // Function to check the selected answer
 function checkAnswer(event) {
-    var selectedAnswer = event.target.textContent.slice(3); // gets the answer from the button text
+    var selectedAnswer = event.target.textContent.slice(3); // extracts the selected answer from the button text
     var currentQuestion = questions[currentQuestionIndex];  // adding this var into this fx as wells
 
-    if (selectedAnswer === currentQuestion.correctAnswer) {
-        // then we have correct answer
+    if (selectedAnswer === currentQuestion.correctAnswer) { // checks if the selected answer matches the correct answer 
+        // since total score is 100, each correct answer = 20 points
+        score += 20;
     } else {
-        // incorrect answer, time is deducted
+        // incorrect answer
         startTime -= 10;                                    // Deducts 10s for each incorrect answer
     }
 
@@ -87,3 +89,43 @@ function endQuiz() {
     document.getElementById("end-screen").classList.remove("hidden");
     document.getElementById("final-score").textContent = score;         // final score displays here
 }
+
+// Modified the startQuiz and endQuiz functions to reset the score and timer before starting quiz
+function startQuiz() {
+    score = 0;            // resets the score to 0
+    startTime = 75;       // resets timer to 75s
+    document.getElementById("start-quiz").classList.add("hidden");
+    document.getElementById("quiz-screen").classList.remove("hidden");
+    displayQuestion();
+    startTimer();
+    updateTimer();        // its function mentioned below 
+}
+
+function endQuiz() {
+    clearInterval(timer);                                               // stops the timer
+    document.getElementById("quiz-screen").classList.add("hidden");     // repeat of screen display as shown above
+    document.getElementById("end-screen").classList.remove("hidden");
+    document.getElementById("final-score").textContent = score;         // text content of final score should display 
+}
+
+// Function to start the countdown
+function startTimer() {
+    timer = setInterval(
+        function () {
+            startTime--;
+            updateTimer();          // updates timer display
+            if (startTime <= 0) {   // ends quiz when timer hits 0
+                endQuiz();
+            }
+        }, 1000);                   // timer countdown updates every second (1000ms = 1s)
+}
+
+
+//  Function that displays timer on quiz screen
+function updateTimer() {
+    countdownElement.textContent = startTime;
+}
+
+
+// Event listener for the start button to start the quiz
+document.getElementById("start-btn").addEventListener("click", startQuiz);

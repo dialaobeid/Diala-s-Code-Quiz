@@ -32,3 +32,49 @@ body { /* styling for header and main sections */
     border-radius: 8px; /* to make button look more round */
     cursor: pointer; /* changes clicker to pointer when hovering over answer choice */
  }
+
+/* setting up same styling to answer choices like the start button */
+#quiz-screen button {
+    display: flex; /* for setting up layout */
+    flex-direction: column; /* chosen layout */
+    align-items: center;
+    background-color: var(--button-color);
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* to syle the timer section */
+#quiz-screen #timer {
+    text-align: right;
+    padding: 10px;
+    font-size: 18px;
+    color: black; 
+}
+
+/* to syle the submit button */
+#submit-score-btn { 
+    background-color: var(--button-color);
+    color: white;
+    padding: 10px 10px;
+    border-radius: 8px; 
+    cursor: pointer;
+}
+
+/* to syle the go-back button */
+#go-back-btn { 
+    background-color: var(--button-color);
+    color: white;
+    padding: 10px 10px;
+    border-radius: 8px; 
+    cursor: pointer;
+}
+
+/* to syle the clear-board button */
+#clear-board-btn { 
+    background-color: var(--button-color);
+    color: white;
+    padding: 10px 10px;
+    border-radius: 8px; 
+    cursor: pointer;
+}

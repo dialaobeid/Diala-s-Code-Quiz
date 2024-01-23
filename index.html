@@ -10,7 +10,7 @@
     <header>
         <div id="start-quiz">
             <h1>Coding Quiz Challenge</h1>
-            <p>Try to answer the following code-related questoins within the time limit. Keep in mind that incorrect
+            <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect
                 answers will penalize your score/time by ten seconds!</p>
             <button id="start-btn">Start Quiz</button>
         </div>
@@ -28,11 +28,11 @@
             <p>Your final score is <span id="final-score"></span></p>   <!--where final score will display-->
             <label for="initials">Enter Initials:</label>
             <input type="text" id="initials" />
-            <button id="submit-score-btn">Submit</button>               <!--after initials are input, score submitted to scoreboard below-->
+            <button id="submit-score-btn" onclick="viewHighScores()">Submit</button>               <!--after initials are input, score submitted to scoreboard below-->
         </div>
 
         <div id="score-board" class="hidden">
-            <h2>Highscores</h2>
+            <h2>High Scores</h2>
             <p></p>
             <button id="go-back">Go Back</button>                       <!--takes me back to end screen-->
             <button id="clear-board-btn">Clear Highscores</button>      <!--button to clear scoreboard-->

@@ -61,6 +61,13 @@ body { /* styling for header and main sections */
     cursor: pointer;
 }
 
+/* to syle the scoreboard */
+#score-board p {
+    background-color: rgb(221, 175, 244);
+    padding: 10px;
+    border-radius: 8px;
+}
+
 /* to syle the go-back button */
 #go-back-btn { 
     background-color: var(--button-color);

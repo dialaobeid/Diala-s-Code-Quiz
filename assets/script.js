@@ -32,7 +32,7 @@ var currentQuestionIndex = 0;                                   // will keep tra
 var timer;
 var startTime = 75; // Initial timer value
 var countdownElement = document.getElementById("countdown");    // important variable to display countdown in html
-var score = 0;  
+var score = 0;      // starts at 0
 
 // Function to start the quiz
 function startQuiz() {
@@ -41,6 +41,9 @@ function startQuiz() {
     displayQuestion();          // calls fx to display current ques
     startTimer();               // calls fx to start timer
 }
+
+// Event listener for the start button to start the quiz
+document.getElementById("start-btn").addEventListener("click", startQuiz);
 
 // Function to display each quiz ques
 function displayQuestion() {
@@ -81,7 +84,7 @@ function checkAnswer(event) {
     }
 }
 
-// Function that ends the quiz
+// Function to end the quiz
 function endQuiz() {
     clearInterval(timer);                                               // stops the timer
     countdownElement.textContent = "Time's up!";                        // adds text to countdown element in html
@@ -99,6 +102,8 @@ function startQuiz() {
     displayQuestion();
     startTimer();
     updateTimer();        // its function mentioned below 
+
+    document.getElementById("submit-score-btn").addEventListener("click", viewHighScores);
 }
 
 function endQuiz() {
@@ -126,12 +131,52 @@ function updateTimer() {
 }
 
 
+// All the code for accessing the scoreboard and displaying high scores 
+// Event listener for the submit-btn to trigger viewHighScores fx
+document.getElementById("submit-score-btn").addEventListener("click", viewHighScores);
+
 // Function for link to high scores page to view scoreboard
 function viewHighScores() {
     document.getElementById("end-screen").classList.add("hidden");      // hides end-screen section to display score-board section
     document.getElementById("score-board").classList.remove("hidden");
 
+    // Extracting scores from storage to display them
+    var highScores = getHighScores();                                   // this fx is mentioned below
+
+    highScores.push({ initials: document.getElementById("initials").value, score: score }); // created lines 142-148 with help from internet, Xpert learning assitant 
+
+    // displaying high scores on scoreboard 
+    var highScoresContainer = document.getElementById("score-board").getElementsByTagName("p")[0]; // this container represents the html element score-board, will display and clear the score-board
+    highScoresContainer.innerHTML = "";                                                            // to clear existing scores
+
+    highScores.forEach(
+        function (entry, index) {
+            var scoreValue = document.createElement("div");
+            scoreValue.textContent = (index + 1) + ". " + entry.initials + " - " + entry.score;    // format for score display "1. XY - score"
+            scoreValue.classList.add("score-item");
+            highScoresContainer.appendChild(scoreValue);
+        });
 }
 
-// Event listener for the start button to start the quiz
-document.getElementById("start-btn").addEventListener("click", startQuiz);
+// Function to get high scores 
+function getHighScores() {
+    // to retrieve saved scores from localStorage
+    var storedScores = localStorage.getItem("highScores");
+    return storedScores ? JSON.parse(storedScores) : [];
+}
+
+// Event listener for the go-back-btn to return to end screen
+document.getElementById("go-back-btn").addEventListener("click", function () {
+    document.getElementById("score-board").classList.add("hidden");      // hides score-board section to display end-screen 
+    document.getElementById("end-screen").classList.remove("hidden");    // I set it to return to end quiz screen since I am not sure what it is supposed to go back to
+});
+
+// Event listener for the clear-board-btn to clear scoreboard
+document.getElementById("clear-board-btn").addEventListener("click", function () {
+    // clears the scoreboard
+    localStorage.removeItem("highScores");
+
+    // clears the displayed scores
+    var scoresContainer = document.getElementById("score-board").getElementsByTagName("p")[0];
+    scoresContainer.innerHTML = "";
+});
